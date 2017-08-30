@@ -19,10 +19,10 @@ def image_to_matrix(path):
         shape = (h, w, 3)
     elif img.mode == 'L':
         shape = (h, w, 1)
-    return np.asmatrix(img.getdata(), dtype='int'), shape
+    return np.asmatrix(img.getdata(), dtype='float'), shape
 
 
-def compress(path, K, iter=3):
+def compress(path, K, iter=1):
     X, shape = image_to_matrix(path)
     m, n = X.shape
     a = time.time()
@@ -49,7 +49,6 @@ def init_random_centroids(X, K):
     return (np.asarray(centroids))[:,0,:] #list 转换成Matrix
 
 
-
 def find_closest_centroids(img, centroids):
     m, n = img.shape
     K, _ = centroids.shape
@@ -65,7 +64,7 @@ def find_closest_centroids(img, centroids):
 def move_centroids(img, cen_idx, K):
     m, n = img.shape
     times = np.zeros([K, 1], dtype='int')
-    centroids = np.zeros([K, n], dtype='int')
+    centroids = np.zeros([K, n], dtype='float')
     for i in range(m):
         idx = int(cen_idx[i])
         centroids[idx] = centroids[idx] + img[i]
@@ -81,9 +80,19 @@ def save_compressed_img(M, path, shape):
     Image.fromarray(img.astype(np.uint8)).save(path)
 
 
-def matrixToImage(matrix, shape):
+# TODO
+def matrix_to_image(matrix, shape):
     pass
 
 
-compress('./a.jpg', K=16)
+# TODO
+def save_to_mat(matrix, shape):
+    pass
+
+
+# TODO
+def load_mat(path):
+    pass
+
+compress('./b.jpg', 16, iter=10)
 print('done...')
