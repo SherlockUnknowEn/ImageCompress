@@ -2,7 +2,7 @@
 # @Time    : 2017/9/5 下午10:44
 # @Author  : fj
 # @Site    : 
-# @File    : kmeans_tf.py
+# @File    : kmeans_net.py
 # @Software: PyCharm
 
 import tensorflow as tf
@@ -48,8 +48,9 @@ def TFKmeans(vect, K, iter=3):
                 v = vect[j]
                 # 对于当前像素  计算它到每一个簇中心的距离
                 M = np.full(shape=[K, n], fill_value=v)
-                # 取距离最近的那个簇中心的索引
                 idx = sess.run(op_idx, feed_dict={v1: M, op_centroids: centroids})
+                # 取距离最近的那个簇中心的索引
+                # idx = sess.run(op_idx, feed_dict={each_centroid_distances: distances})
                 # 将索引保存在cent_idx[j]中
                 value = sess.run(op_cent_idx)
                 value[j] = idx
